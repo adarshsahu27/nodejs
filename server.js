@@ -6,7 +6,7 @@ const app=express()
 const httpServer= http.createServer(app)
 app.use(express.urlencoded({ extended: true }));  //encode url
 app.use(express.json());     //enables json
-app.use(cors());            //
+app.use(cors());            //allows you to configure the web API's security
 
 //default route
 app.use("/", (req, res, next) => {              //route define
