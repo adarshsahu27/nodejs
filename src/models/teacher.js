@@ -1,16 +1,19 @@
 const { Schema, model} = require("mongoose");
-//Student Schema
+//Teacher Schema
 
-const studentSchema= new Schema({
-    name: String,       // String is shorthand for {type: String}
+const teacherSchema= new Schema({
+    name: String,      // String is shorthand for {type: String}
     gender: String,
     email: {
         type: String,
         unique: true,
     },
-    dob: Date,
-    standard: String,
-    rollNumber: String,
+    teacherID: {
+        type: Number,
+        unique: true,
+    },
+    salary: Number,
+    standard: [String],
     contactNumber:{
         type: Number,
         unique: true,
@@ -24,4 +27,4 @@ const studentSchema= new Schema({
 });
 
 // Model
-module.exports = model("Student" , studentSchema);
+module.exports = model("Teacher" , teacherSchema);

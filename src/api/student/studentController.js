@@ -2,15 +2,20 @@ const Student = require("../../models/student");
 
 const createStudent = async (req, res, next) => {
   try {
-    const { name, gender, email, standard, rollNumber, contactNumber } =
+    const { name, gender, email, dob, standard, rollNumber, contactNumber, vaccinated, address, state, pincode } =
       req.body;
     let newStudent = {
       name,
       gender,
       email,
+      dob,
       standard,
       rollNumber,
       contactNumber,
+      vaccinated,
+      address,
+      state,
+      pincode,
       createdAt: new Date().toISOString(),
     };
     const student = await Student.create(newStudent);
@@ -56,7 +61,7 @@ const getStudent = async (req, res, next) => {
     try {
       const { rollNumber} = req.body;
 
-      const student = await Student.deleteOne({rollNumber});
+      const student = await Student.deleteOne();
   
       return res.status(200).json(student);
     } 
