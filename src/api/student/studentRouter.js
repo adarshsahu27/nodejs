@@ -7,6 +7,7 @@ router.post("/", createStudent);
 router.get("/", getStudent);
 router.get("/all", listStudent);
 router.delete("/", deleteStudent);
-router.get("/update", updateStudent);
+router.put("/", updateStudent);
+
 
 module.exports = router;
