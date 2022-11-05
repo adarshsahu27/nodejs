@@ -32,7 +32,7 @@ const getStudent = async (req, res, next) => {
     try {
       const { rollNumber} = req.query;
 
-      const student = await Student.findOne({rollNumber});
+      const student = await Student.find({rollNumber});
   
       return res.status(200).json(student);
     } 
@@ -85,6 +85,28 @@ const getStudent = async (req, res, next) => {
     }
   };
 
+  const totalStudent = async (req, res, next) => {
+    try {
+      const { standard } = req.query;
+      const student = await Student.find({standard});
+      if (student) {
+       let length= {noOfStudents: student.length}
+       
+       
+      //  student.length;
+      //  console.log(`Total no. of in this standard are : ` +length );
+      
+    
+  
+      return res.status(200).json(length);
+    } }
+    catch (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+  };
 
 
-module.exports = { createStudent, getStudent , listStudent, deleteStudent , updateStudent};
+
+
+module.exports = { createStudent, getStudent , listStudent, deleteStudent , updateStudent, totalStudent};
