@@ -1,20 +1,17 @@
-const teacher = require("../../models/teacher");
+const Teacher = require("../../models/teacher");
 
 const createTeacher= async (req, res, next) => {
   try {
-    const { name, gender, email, teacherID, salary, standard, contactNumber, vaccinated, address, state, pincode } =
+    const { name, gender, teacherId, salary, standard, vaccinated, address, pincode } =
       req.body;
     let newTeacher = {
       name,
       gender,
-      email,
-      teacherID,
+      teacherId,
       salary,
       standard,
-      contactNumber,
       vaccinated,
       address,
-      state,
       pincode,
       createdAt: new Date().toISOString(),
     };
@@ -30,9 +27,9 @@ const createTeacher= async (req, res, next) => {
 
 const getTeacher = async (req, res, next) => {
     try {
-      const { teacherID} = req.query;
+      const {teacherId} = req.query;
 
-      const teacher = await Student.findOne({teacherID});
+      const teacher = await Student.findOne({teacherId});
   
       return res.status(200).json(teacher);
     } 
@@ -44,9 +41,9 @@ const getTeacher = async (req, res, next) => {
 
   const listTeacher = async (req, res, next) => {
     try {
-      const { teacherID} = req.query;
+      const { teacherId} = req.query;
 
-      const teacher = await Student.find();
+      const teacher = await Teacher.find();
   
       return res.status(200).json(teacher);
     } 
@@ -86,7 +83,39 @@ const getTeacher = async (req, res, next) => {
 //   };
 
 
+  const updateStandard = async (req, res, next) => {
+    try {
+      const { teacherId } = req.body;
 
-module.exports = { createTeacher, getTeacher , listTeacher };
+      let teacher = await Teacher.updateOne({teacherId},
+        { $push:{standard: req.body.standard}}); 
+      return res.status(200).json(teacher);
+    } 
+    catch (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+  };
 
-//, deleteStudent , updateStudent
+
+  const deleteStandard = async (req, res, next) => {
+    try {
+      const { teacherId } = req.body;
+
+      let teacher = await Teacher.findOneAndUpdate({teacherId},
+        { $pull:{standard: req.body.standard}}); 
+      return res.status(200).json(teacher);
+    } 
+    catch (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+  };
+
+
+
+
+
+
+module.exports = { createTeacher, getTeacher , listTeacher, updateStandard, deleteStandard };
+

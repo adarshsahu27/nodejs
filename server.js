@@ -10,8 +10,10 @@ app.use(express.json());     //enables json
 app.use(cors());            //allows you to configure the web API's security
 
 const studentRouter = require("./src/api/student/studentRouter");
+const teacherRouter = require("./src/api/teacher/teacherRouter");
 
-app.use("/api/student", studentRouter)
+app.use("/api/student", studentRouter);
+app.use("/api/teacher", teacherRouter);
 
 
 //default route

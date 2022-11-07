@@ -95,8 +95,6 @@ const getStudent = async (req, res, next) => {
        
       //  student.length;
       //  console.log(`Total no. of in this standard are : ` +length );
-      
-    
   
       return res.status(200).json(length);
     } }
@@ -107,6 +105,42 @@ const getStudent = async (req, res, next) => {
   };
 
 
+  const similarName = async (req, res, next) => {
+    try {
+      const {name} = req.query;
+
+      const student = await Student.find({name: { $regex: name , $options: '<i>' }});
+      return res.status(200).json(student);
+    } 
+    catch (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+  };
 
 
-module.exports = { createStudent, getStudent , listStudent, deleteStudent , updateStudent, totalStudent};
+
+  const vaccinateStudent = async (req, res, next) => {
+    try {
+      const { rollNumber, standard, vaccinated } = req.body;
+      
+
+      let student = await Student.findOneAndUpdate({rollNumber, standard}, {vaccinated});
+       student = await Student.findOne({rollNumber, standard}); 
+      return res.status(200).json(student);
+    } 
+    catch (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+  };
+
+
+
+
+
+
+
+
+
+module.exports = { createStudent, getStudent , listStudent, deleteStudent , updateStudent, totalStudent, similarName, vaccinateStudent};
