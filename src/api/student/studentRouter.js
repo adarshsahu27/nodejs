@@ -1,7 +1,16 @@
 const express = require("express");
 const router = express.Router();
 
-const {createStudent, getStudent, listStudent, deleteStudent , updateStudent, totalStudent, similarName, vaccinateStudent } = require("./studentController");
+const {
+  createStudent,
+  getStudent,
+  listStudent,
+  deleteStudent,
+  updateStudent,
+  totalStudent,
+  similarName,
+  vaccinateStudent,
+} = require("./studentController");
 
 router.post("/", createStudent);
 router.get("/", getStudent);
