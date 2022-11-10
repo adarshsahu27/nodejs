@@ -1,5 +1,7 @@
 const Student = require("../../models/student");
 
+const {schema} = require("../../validator/schemas");
+
 const createStudent = async (req, res, next) => {
   try {
     const {
@@ -85,9 +87,20 @@ const deleteStudent = async (req, res, next) => {
 const updateStudent = async (req, res, next) => {
   try {
     const { rollNumber } = req.body;
-    if (rollNumber === "") {
-      return res.status(400).json({ error: "Input value can't be empty." });
+    // if (rollNumber === "") {
+    //   return res.status(400).json({ error: "Input value can't be empty." });
+    // }
+
+
+    const result= await schema.validate(req.body);
+    console.log(result);
+    const {error} = result;
+    if (error !== null){
+        const {details} = error;
+        const message= details.map(i=> i.message).join(",")
+        return res.status(400).json(message);
     }
+
 
     let student = await Student.findOneAndUpdate({ rollNumber }, req.body);
     student = await Student.findOne({ rollNumber });
