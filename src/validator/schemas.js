@@ -21,7 +21,7 @@ const schema = Joi.object({
 
     rollNumber: Joi.string().min(2).max(3).required(),
 
-    contactNumber: Joi.number().regex(/^[6-9]{1}[0-9]{9}*/).required(),
+    contactNumber: Joi.string().pattern(new RegExp('^[6-9]{1}[0-9]{9}')).required(),
 
     vaccinated: Joi.boolean().default(true),
 
@@ -29,10 +29,9 @@ const schema = Joi.object({
 
     state: Joi.string().min(2).max(10).required(),
 
-    pincode: Joi.number().regex(/^[1-9]{1}[0-9]{5}*/).required(),
+    pincode: Joi.string().pattern(new RegExp('^[1-9]{1}[0-9]{5}')).required(),
 
 
 });
-
 
 module.exports = {schema};
