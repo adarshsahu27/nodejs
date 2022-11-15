@@ -119,14 +119,10 @@ const totalStudent = async (req, res, next) => {
     }
 
     const student = await Student.find({ standard });
-    if (student) {
+    // if (student) {
       let length = { noOfStudents: student.length };
-
-      //  student.length;
-      //  console.log(`Total no. of in this standard are : ` +length );
-
       return res.status(200).json(length);
-    }
+    // }
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
