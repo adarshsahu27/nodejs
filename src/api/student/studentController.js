@@ -2,6 +2,8 @@ const Student = require("../../models/student");
 
 const {schema} = require("../../validator/schemas");
 
+const studentService = require("./studentServices");
+
 const createStudent = async (req, res, next) => {
   try {
     const {
@@ -47,12 +49,12 @@ const getStudent = async (req, res, next) => {
       return res.status(400).json({ error: "Input value can't be empty." });
     }
 
-    const student = await Student.findOne({ rollNumber });
+    const student = await studentService.getStudentByRollNo(rollNumber);
 
     return res.status(200).json(student);
   } catch (err) {
-    console.log(err);
-    return res.status(500).json(err);
+    console.log(err.message);
+    return res.status(500).json({status:false, message:err.message});
   }
 };
 
